@@ -1,0 +1,103 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+
+
+# SQLite / Database
+*.sqlite3
+*.db
+
+# =========================
+# DJANGO BACKEND
+# =========================
+# Django specific
+*.pot
+*.pyc
+*.pyo
+*.mo
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+static/
+
+# Coverage / testing
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# =========================
+# REACT FRONTEND (TypeScript + Tailwind)
+# =========================
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Caches
+.cache/
+.next/
+out/
+*.tsbuildinfo
+
+# Tailwind
+# (Tailwind generates styles at build-time, so no need to track these)
+*.css.map
+
+# Lockfiles (keep only one if your team agrees)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# =========================
+# MISC
+# =========================
+# Docker
+docker-compose.override.yml
+*.pid
+
+# Coverage / reports
+coverage/
+*.lcov
