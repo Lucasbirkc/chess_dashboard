@@ -31,6 +31,9 @@ __pycache__/
 # Virtual environment
 .venv/
 
+# dotenv
+.env
+
 
 # SQLite / Database
 *.sqlite3
