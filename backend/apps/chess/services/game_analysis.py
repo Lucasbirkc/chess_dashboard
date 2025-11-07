@@ -1,4 +1,4 @@
-from chess.models import Game
+from apps.chess.models import Game
 from django.db.models import Q, Avg, Count, Sum, Max
 
 def get_win_rate(username):

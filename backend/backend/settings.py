@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,6 +31,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Session configuration
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Store in database
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
+SESSION_COOKIE_HTTPONLY = True  # JavaScript can't access (XSS protection)
+SESSION_COOKIE_SECURE = True  # Only send over HTTPS (set False for local dev)
+SESSION_COOKIE_SAMESITE = 'Lax'  # CSRF protection
+
+# CSRF configuration (Django's cross-site request forgery protection)
+CSRF_COOKIE_HTTPONLY = False  # React needs this
+CSRF_COOKIE_SECURE = False  # TODO: Change this --> Only HTTPS (False ONLY for local dev)
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173'] # React server
 
 # Application definition
 
@@ -96,7 +110,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'chess_analytics_db', # Created this in terminal
         'USER': 'postgres',
-        'PASSWORD': 'test1234',
+        'PASSWORD': 'test1234', # TODO CHANGE THIS?
         'HOST': 'localhost',  
         'PORT': '5431',       # the mapped port for container
     }
@@ -143,3 +157,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
