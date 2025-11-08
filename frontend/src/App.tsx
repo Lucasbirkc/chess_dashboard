@@ -1,4 +1,6 @@
 import Test from './pages/test';
+import ColorTestPage from './pages/ColorsTestPage';
+import ColorChessAnalyticsDashboard from './pages/DashboardColorPage';
 import {
     Routes,
     Route
@@ -13,6 +15,8 @@ function App() {
                 <Route path="/" element={<Dashboard />}></Route>
                 <Route path="/dashboard" element={<Dashboard />}></Route>
                 <Route path="/test" element={<Test />}></Route>
+                <Route path="/colors" element={<ColorTestPage />}></Route>
+                <Route path="/dashboard-colors" element={<ColorChessAnalyticsDashboard />}></Route>
             </Routes>
         </>
     );

@@ -11,6 +11,21 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --primary: oklch(0.76 0.1 192);
+  --secondary: oklch(0.76 0.1 12);
+  --danger: oklch(0.7 0.1 30);
+  --warning: oklch(0.7 0.1 100);
+  --success: oklch(0.7 0.1 160);
+  --info: oklch(0.7 0.1 260);
+  --bg-dark: oklch(0.1 0.025 331);
+  --bg: oklch(0.15 0.025 331);
+  --bg-light: oklch(0.2 0.025 331);
+  --text: oklch(0.96 0.05 331);
+  --text-muted: oklch(0.76 0.05 331);
+  --highlight: oklch(0.5 0.05 331);
+  --border: oklch(0.4 0.05 331);
+  --border-muted: oklch(0.3 0.05 331);
 }
 
 a {
