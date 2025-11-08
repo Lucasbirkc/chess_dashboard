@@ -1,24 +1,62 @@
 @import "tailwindcss";
 
 @theme {
-  --color-border: hsl(220 13% 91%);
-  --color-input: hsl(220 13% 91%);
-  --color-ring: hsl(200 95% 42%);
-  --color-background: hsl(220 17% 97%);
-  --color-foreground: hsl(220 15% 15%);
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
   
-  --color-primary: hsl(200 95% 42%);
-  --color-primary-foreground: hsl(0 0% 100%);
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
   
-  --color-secondary: hsl(220 14% 96%);
-  --color-secondary-foreground: hsl(220 15% 15%);
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
   
-  --color-muted: hsl(220 14% 96%);
-  --color-muted-foreground: hsl(220 10% 46%);
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
   
-  --color-accent: hsl(200 95% 42%);
-  --color-accent-foreground: hsl(0 0% 100%);
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
   
-  --color-card: hsl(50 10% 100%);
-  --color-card-foreground: hsl(220 15% 15%);
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+}
+
+@layer base {
+  :root {
+    --background: 183 52% 13%;
+    --foreground: 103 75% 72%;
+    --card: 183 52% 16%;
+    --card-foreground: 103 75% 72%;
+    --primary: 103 75% 72%;
+    --primary-foreground: 183 52% 13%;
+    --secondary: 183 52% 20%;
+    --secondary-foreground: 103 75% 72%;
+    --muted: 183 52% 20%;
+    --muted-foreground: 103 50% 60%;
+    --accent: 103 75% 72%;
+    --accent-foreground: 183 52% 13%;
+    --border: 183 52% 25%;
+    --input: 183 52% 25%;
+    --ring: 103 75% 72%;
+  }
+
+  .light {
+    --background: 103 75% 95%;
+    --foreground: 183 52% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 183 52% 13%;
+    --primary: 103 75% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 103 30% 90%;
+    --secondary-foreground: 183 52% 13%;
+    --muted: 103 30% 90%;
+    --muted-foreground: 183 30% 35%;
+    --accent: 103 75% 45%;
+    --accent-foreground: 0 0% 100%;
+    --border: 183 30% 80%;
+    --input: 183 30% 80%;
+    --ring: 103 75% 45%;
+  }
 }

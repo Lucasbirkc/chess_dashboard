@@ -1,9 +1,27 @@
 import { Link, useLocation } from "react-router-dom";
-import { BarChart3, RefreshCw, Settings, Info } from "lucide-react";
+import { BarChart3, RefreshCw, Settings, Info, Moon, Sun } from "lucide-react";
 import { cn } from "../lib/utils";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const location = useLocation();
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    // Check if there's a saved theme preference
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('light', savedTheme === 'light');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.classList.toggle('light', newTheme === 'light');
+    localStorage.setItem('theme', newTheme);
+  };
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: BarChart3 },
@@ -44,6 +62,18 @@ const Navbar = () => {
               })}
             </div>
           </div>
+
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </button>
         </div>
       </div>
     </nav>
