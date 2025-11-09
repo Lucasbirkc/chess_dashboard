@@ -25,38 +25,38 @@
 
 @layer base {
   :root {
-    --background: 183 52% 13%;
-    --foreground: 103 75% 72%;
-    --card: 183 52% 16%;
-    --card-foreground: 103 75% 72%;
-    --primary: 103 75% 72%;
-    --primary-foreground: 183 52% 13%;
-    --secondary: 183 52% 20%;
-    --secondary-foreground: 103 75% 72%;
-    --muted: 183 52% 20%;
-    --muted-foreground: 103 50% 60%;
-    --accent: 103 75% 72%;
-    --accent-foreground: 183 52% 13%;
-    --border: 183 52% 25%;
-    --input: 183 52% 25%;
-    --ring: 103 75% 72%;
+    --background: 24 12% 15%;
+    --foreground: 24 78% 88%;
+    --card: 24 12% 18%;
+    --card-foreground: 24 78% 88%;
+    --primary: 25 69% 47%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 25 47% 28%;
+    --secondary-foreground: 24 78% 88%;
+    --muted: 25 47% 28%;
+    --muted-foreground: 25 96% 72%;
+    --accent: 25 69% 47%;
+    --accent-foreground: 0 0% 100%;
+    --border: 25 45% 34%;
+    --input: 25 45% 34%;
+    --ring: 25 69% 47%;
   }
 
   .light {
-    --background: 103 75% 95%;
-    --foreground: 183 52% 13%;
+    --background: 24 78% 96%;
+    --foreground: 24 12% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 183 52% 13%;
-    --primary: 103 75% 45%;
+    --card-foreground: 24 12% 15%;
+    --primary: 25 69% 40%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 103 30% 90%;
-    --secondary-foreground: 183 52% 13%;
-    --muted: 103 30% 90%;
-    --muted-foreground: 183 30% 35%;
-    --accent: 103 75% 45%;
+    --secondary: 25 30% 90%;
+    --secondary-foreground: 24 12% 15%;
+    --muted: 25 30% 90%;
+    --muted-foreground: 25 45% 34%;
+    --accent: 25 69% 40%;
     --accent-foreground: 0 0% 100%;
-    --border: 183 30% 80%;
-    --input: 183 30% 80%;
-    --ring: 103 75% 45%;
+    --border: 25 30% 80%;
+    --input: 25 30% 80%;
+    --ring: 25 69% 40%;
   }
 }
