@@ -5,6 +5,8 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
+import ProtectedRoute from './components/utils/ProtectedRoute';
+import PublicRoute from './components/utils/PublicRoute';
 import { Toaster } from "./components/ui/Toaster";
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
@@ -12,17 +14,46 @@ import DataFetch from './pages/DataFetch';
 import Settings from './pages/Settings';
 import About from './pages/About';
 
+
 function App() {
     return (
         <>
             <Toaster />
             <Routes>
-                    <Route path="/" element={<Dashboard />}></Route>
-                    <Route path="/dashboard" element={<Dashboard />}></Route>
-                    <Route path="/login" element={<Login />}></Route>
-                    <Route path="/data-fetch" element={<DataFetch />}></Route>
-                    <Route path="/settings" element={<Settings />}></Route>
-                    <Route path="/about" element={<About />}></Route>
+                    {/* PROTECTED URLS */}
+                    <Route path="/">
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    </Route>
+                    <Route path="/dashboard">
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    </Route>
+                    <Route path="/data-fetch">
+                        <ProtectedRoute>
+                            <DataFetch />
+                        </ProtectedRoute>
+                    </Route>
+                    <Route path="/settings">
+                        <ProtectedRoute>
+                            <Settings />
+                        </ProtectedRoute>
+                    </Route>
+                    <Route path="/about">
+                        <ProtectedRoute>
+                            <About />
+                        </ProtectedRoute>
+                    </Route>
+
+                    {/* PUBLIC URLS */}
+
+                    <Route path="/login">
+                        <PublicRoute>
+                            <Login />
+                        </PublicRoute>
+                    </Route>
 
                     {/* TESTING URLS */}
                     <Route path="/test" element={<Test />}></Route>
