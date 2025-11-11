@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import {
   Card,
@@ -10,59 +11,113 @@ import {
 } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
-
-// export const title = "Login Card";
+import { useAuth } from "@/contexts/AuthContext";
+import { apiRequest, initializeCSRF } from "@/services/api/csrf";
 
 const LoginCard = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { checkAuth } = useAuth();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await apiRequest("http://localhost:8000/api/auth/login/", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Update auth context with current user
+        await checkAuth();
+        // Re-fetch the new CSRF token
+        await initializeCSRF(); 
+        // Redirect to dashboard
+        navigate("/dashboard");
+      } else {
+        setError(data.error || "Invalid username or password");
+      }
+    } catch (err) {
+      setError("Network error. Please try again.");
+      console.error("Login error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
-        <CardDescription>
-          Enter your email below to login to your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="m@example.com"
-            type="email"
-            value={email}
-          />
-        </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password">Password</Label>
-            <a className="text-sm hover:underline" href="#">
-              Forgot your password?
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Login to your account</CardTitle>
+          <CardDescription>
+            Enter your username below to login to your account
+          </CardDescription>
+        </CardHeader>
+        <form onSubmit={handleSubmit}>
+          <CardContent className="space-y-2">
+            <div className="space-y-1">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+                type="text"
+                value={username}
+                required
+                disabled={loading}
+              />
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
+                <a
+                  className="ml-auto inline-block text-sm underline"
+                  href="/forgot-password"
+                >
+                  Forgot your password?
+                </a>
+              </div>
+              <Input
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                value={password}
+                required
+                disabled={loading}
+              />
+            </div>
+            {error && (
+              <div className="text-sm text-red-600 mt-2">
+                {error}
+              </div>
+            )}
+          </CardContent>
+          <CardFooter className="flex flex-col">
+            <Button className="w-full" type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </Button>
+          </CardFooter>
+        </form>
+        <CardFooter>
+          <div className="mt-4 text-center text-sm">
+            Don't have an account?{" "}
+            <a className="underline" href="/signup">
+              Sign up
             </a>
           </div>
-          <Input
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            value={password}
-          />
-        </div>
-        <Button className="w-full">Login</Button>
-        <Button className="w-full" variant="outline">
-          Login with Google
-        </Button>
-      </CardContent>
-      <CardFooter className="flex justify-center">
-        <p className="text-muted-foreground text-sm">
-          Don't have an account?{" "}
-          <a className="underline" href="#">
-            Sign up
-          </a>
-        </p>
-      </CardFooter>
-    </Card>
+        </CardFooter>
+      </Card>
+    </>
   );
 };
+
 export default LoginCard;

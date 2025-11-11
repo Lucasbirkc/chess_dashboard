@@ -5,7 +5,6 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
-import './App.css';
 import { Toaster } from "./components/ui/Toaster";
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';

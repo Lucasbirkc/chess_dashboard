@@ -2,10 +2,15 @@ import { Link, useLocation } from "react-router-dom";
 import { BarChart3, RefreshCw, Settings, Info, Moon, Sun } from "lucide-react";
 import { cn } from "../lib/utils";
 import { useEffect, useState } from "react";
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
 
 const Navbar = () => {
   const location = useLocation();
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check if there's a saved theme preference
@@ -15,6 +20,11 @@ const Navbar = () => {
       document.documentElement.classList.toggle('light', savedTheme === 'light');
     }
   }, []);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login"); // Redirect to login after logout
+  }
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -62,18 +72,29 @@ const Navbar = () => {
               })}
             </div>
           </div>
-
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
+          
+          <div className="flex items-center">
+            {user && ( // Show if user is logged in
+              <button 
+                onClick={handleLogout}
+                className="p-2 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+                aria-label="Logout"
+              >
+                <LogOut className="h-5 w-5" />
+              </button>
             )}
-          </button>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </nav>
