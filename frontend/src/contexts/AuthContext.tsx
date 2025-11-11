@@ -28,9 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/user/', {
-        credentials: 'include',
-      });
+      const response = await apiRequest('http://localhost:8000/api/auth/user/', {});
 
       if (response.ok) {
         const userData = await response.json();
@@ -48,9 +46,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:8000/api/auth/logout/', {
+      await apiRequest('http://localhost:8000/api/auth/logout/', {
         method: 'POST',
-        credentials: 'include',
       });
       setUser(null);
     } catch (err) {

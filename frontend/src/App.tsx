@@ -20,45 +20,20 @@ function App() {
         <>
             <Toaster />
             <Routes>
-                    {/* PROTECTED URLS */}
-                    <Route path="/">
-                        <ProtectedRoute>
-                            <Dashboard />
-                        </ProtectedRoute>
-                    </Route>
-                    <Route path="/dashboard">
-                        <ProtectedRoute>
-                            <Dashboard />
-                        </ProtectedRoute>
-                    </Route>
-                    <Route path="/data-fetch">
-                        <ProtectedRoute>
-                            <DataFetch />
-                        </ProtectedRoute>
-                    </Route>
-                    <Route path="/settings">
-                        <ProtectedRoute>
-                            <Settings />
-                        </ProtectedRoute>
-                    </Route>
-                    <Route path="/about">
-                        <ProtectedRoute>
-                            <About />
-                        </ProtectedRoute>
-                    </Route>
+                {/* PROTECTED URLS */}
+                <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/data-fetch" element={<ProtectedRoute><DataFetch /></ProtectedRoute>} />
+                <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+                <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
 
-                    {/* PUBLIC URLS */}
+                {/* PUBLIC URLS*/}
+                <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
 
-                    <Route path="/login">
-                        <PublicRoute>
-                            <Login />
-                        </PublicRoute>
-                    </Route>
-
-                    {/* TESTING URLS */}
-                    <Route path="/test" element={<Test />}></Route>
-                    <Route path="/colors" element={<ColorTestPage />}></Route>
-                    <Route path="/dashboard-colors" element={<ColorChessAnalyticsDashboard />}></Route>
+                {/* TESTING URLS */}
+                <Route path="/test" element={<Test />} />
+                <Route path="/colors" element={<ColorTestPage />} />
+                <Route path="/dashboard-colors" element={<ColorChessAnalyticsDashboard />} />
             </Routes>
             
         </>
