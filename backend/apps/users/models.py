@@ -10,4 +10,4 @@ class User(AbstractUser):
     premium_expires_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.email
+        return self.username

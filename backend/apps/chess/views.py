@@ -17,6 +17,10 @@ class PlayerWinRateView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+
+        #print(f"User is: {request.user}")
+
+        #return Response({'win_rate': 48, 'total_games': 100}, status=status.HTTP_200_OK)
         # Get user's primary user games
         player = get_object_or_404(
             Player, 
