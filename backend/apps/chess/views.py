@@ -1,6 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from apps.chess.models import Player
 
 from .services.game_analysis import (
     get_win_rate,
@@ -11,8 +14,17 @@ from .services.game_analysis import (
 )
 
 class PlayerWinRateView(APIView):
-    def get(self, request, username):
-        data = get_win_rate(username)
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get user's primary user games
+        player = get_object_or_404(
+            Player, 
+            user=request.user,
+            is_primary=True
+        )
+
+        data = get_win_rate(player.username)
         return Response(data, status=status.HTTP_200_OK)
 
 class PlayerPeakRatingView(APIView):

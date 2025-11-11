@@ -1,11 +1,20 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from apps.users.models import User
 
 # Player Model
 class Player(models.Model):
+    user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name='players',
+        default=1
+    )
+
     # Maybe username and platform should be paired together uniquely
     username = models.CharField(max_length=100)
     platform = models.CharField(max_length=50, default='chess.com')
+    is_primary = models.BooleanField(default=False) # Default showing
 
     country = models.CharField(max_length=3, blank=True, null=True)  # ISO country code
     created_at = models.DateTimeField(auto_now_add=True)
@@ -15,6 +24,7 @@ class Player(models.Model):
         unique_together = ['username', 'platform']
         indexes = [
             models.Index(fields=['username', 'platform']),
+            models.Index(fields=['user', 'is_primary']),
         ]
 
 # Game Model
