@@ -8,7 +8,7 @@ class Player(models.Model):
         User, 
         on_delete=models.CASCADE, 
         related_name='players',
-        default=1
+        default=5
     )
 
     # Maybe username and platform should be paired together uniquely
