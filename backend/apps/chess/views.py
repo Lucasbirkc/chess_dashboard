@@ -29,24 +29,51 @@ class PlayerWinRateView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 class PlayerPeakRatingView(APIView):
-    def get(self, request, username):
-        data = {'peak_rating': get_peak_rating(username)}
+    def get(self, request):
+        # Get user's primary user games
+        player = get_object_or_404(
+            Player, 
+            user=request.user,
+            is_primary=True
+        )
+
+        data = {'peak_rating': get_peak_rating(player.username)}
         return Response(data, status=status.HTTP_200_OK)
 
 class PlayerLatestRatingView(APIView):
-    def get(self, request, username):
-        data = {'latest_rating': get_latest_rating(username)}
+    def get(self, request):
+        # Get user's primary user games
+        player = get_object_or_404(
+            Player, 
+            user=request.user,
+            is_primary=True
+        )
+
+        data = {'latest_rating': get_latest_rating(player.username)}
         return Response(data, status=status.HTTP_200_OK)
 
 class PlayerTotalGamesView(APIView):
-    def get(self, request, username):
-        data = {'total_games': get_total_games_played(username)}
+    def get(self, request):
+        # Get user's primary user games
+        player = get_object_or_404(
+            Player, 
+            user=request.user,
+            is_primary=True
+        )
+
+        data = {'total_games': get_total_games_played(player.username)}
         return Response(data, status=status.HTTP_200_OK)
 
 class PlayerOpeningStatsView(APIView):
-    def get(self, request, username):
+    def get(self, request):
+        # Get user's primary user games
+        player = get_object_or_404(
+            Player, 
+            user=request.user,
+            is_primary=True
+        )
         min_rating = int(request.query_params.get('min_rating', 0))
-        data = list(get_opening_stats(username, min_rating))
+        data = list(get_opening_stats(player.username, min_rating))
         return Response(data, status=status.HTTP_200_OK)
     
 class PlayerOpeningPerformanceView(APIView):
@@ -56,14 +83,21 @@ class PlayerOpeningPerformanceView(APIView):
         # return Response(data, status=status.HTTP_200_OK)
     
 class PlayerAnalyticsOverview(APIView):
-    def get(self, request, username):
+    def get(self, request):
+        # Get user's primary user games
+        player = get_object_or_404(
+            Player, 
+            user=request.user,
+            is_primary=True
+        )
+
         min_rating = int(request.query_params.get('min_rating', 0))
 
         data = {
-            'win_rate': get_win_rate(username),
-            'peak_rating': get_peak_rating(username),
-            'latest_rating': get_latest_rating(username),
-            'total_games': get_total_games_played(username),
-            'openings': list(get_opening_stats(username, min_rating)),
+            'win_rate': get_win_rate(player.username),
+            'peak_rating': get_peak_rating(player.username),
+            'latest_rating': get_latest_rating(player.username),
+            'total_games': get_total_games_played(player.username),
+            'openings': list(get_opening_stats(player.username, min_rating)),
         }
         return Response(data)

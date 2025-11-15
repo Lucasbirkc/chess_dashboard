@@ -1,18 +1,49 @@
-import { Trophy } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPlayerOpenings } from "@/services/api/gamesInfo";
 
 interface Opening {
-  name: string;
-  gamesPlayed: number;
+  opening_name: string;
+  count: number;
 }
 
-interface OpeningsListProps {
-  openings: Opening[];
-}
+export const OpeningsListCard = () => {
+  const {
+    data,
+    isLoading,
+    isError,
+  } = useQuery<Opening[]>({
+    queryKey: ["playerOpenings"],
+    queryFn: fetchPlayerOpenings
+  });
 
-export const OpeningsListCard = ({ openings }: OpeningsListProps) => {
+  if (isLoading) {
+    return (
+      <div className="p-4 bg-secondary rounded-lg text-center">
+        Loading openings...
+      </div>
+    );
+  }
+
+  if (isError || !data) {
+    return (
+      <div className="p-4 bg-secondary rounded-lg text-center">
+        Error loading openings.
+      </div>
+    );
+  }
+
+  const normalized = data.map(o => ({
+    name: o.opening_name,
+    gamesPlayed: o.count,
+  }));
+
+  const topFive = normalized
+    .sort((a, b) => b.gamesPlayed - a.gamesPlayed)
+    .slice(0, 5);
+
   return (
     <div className="space-y-3">
-      {openings.map((opening, index) => (
+      {topFive.map((opening: any, index: number) => (
         <div
           key={index}
           className="flex items-center justify-between p-3 bg-secondary rounded-lg transition-colors hover:bg-secondary/80"
@@ -23,7 +54,9 @@ export const OpeningsListCard = ({ openings }: OpeningsListProps) => {
             </div>
             <span className="font-medium text-foreground">{opening.name}</span>
           </div>
-          <span className="text-sm text-muted-foreground">{opening.gamesPlayed} games</span>
+          <span className="text-sm text-muted-foreground">
+            {opening.gamesPlayed} games
+          </span>
         </div>
       ))}
     </div>

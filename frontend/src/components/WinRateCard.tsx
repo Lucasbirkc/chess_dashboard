@@ -2,7 +2,7 @@ import { StatCard } from "./StatCard";
 import { TrendingUp } from "lucide-react";
 import { WinRateCircle } from "./WinRateCircle";
 import { useQuery } from "@tanstack/react-query";
-import fetchWinRate from "@/services/api/gamesInfo";
+import { fetchWinRate } from "@/services/api/gamesInfo";
 
 export const WinRateCard = () => {
   const { data, isLoading, isError } = useQuery({
