@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      const response = await apiRequest('http://localhost:8000/api/auth/user/', {});
+      const response = await apiRequest('/api/users/auth/user/', {});
 
       if (response.ok) {
         const userData = await response.json();
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      await apiRequest('http://localhost:8000/api/auth/logout/', {
+      await apiRequest('/api/users/auth/logout/', {
         method: 'POST',
       });
       setUser(null);

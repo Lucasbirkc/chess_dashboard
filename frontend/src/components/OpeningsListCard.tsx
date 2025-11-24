@@ -1,10 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchPlayerOpenings } from "@/services/api/gamesInfo";
-
-interface Opening {
-  opening_name: string;
-  count: number;
-}
+import { type Opening } from "@/types/types";
 
 export const OpeningsListCard = () => {
   const {

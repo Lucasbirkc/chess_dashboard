@@ -6,9 +6,10 @@ from apps.users.models import User
 class Player(models.Model):
     user = models.ForeignKey(
         User, 
-        on_delete=models.CASCADE, 
+        on_delete=models.SET_NULL, 
         related_name='players',
-        default=5
+        null=True,
+        blank=True,
     )
 
     # Maybe username and platform should be paired together uniquely

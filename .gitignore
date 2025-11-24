@@ -33,6 +33,8 @@ __pycache__/
 
 # dotenv
 .env
+.env.prod
+.env.local
 
 
 # SQLite / Database

@@ -9,3 +9,8 @@ interface Game {
 export interface RecentGamesResponse {
     games: Game[];
 }
+
+export interface Opening {
+  opening_name: string;
+  count: number;
+}

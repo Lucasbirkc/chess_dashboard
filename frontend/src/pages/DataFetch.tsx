@@ -5,15 +5,30 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { RefreshCw, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/Progress";
+import { apiRequest } from '@/services/api/csrf';
 
 const DataFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const { toast } = useToast();
 
-  const handleFetchData = () => {
+  const handleFetchData = async () => {
     setIsLoading(true);
     setProgress(0);
+
+    try {
+      const response = await apiRequest('/api/chess/players/fetch_games/');
+
+      toast({
+            title: "Sync Started",
+            description: `Games being retrieved...`,
+        });
+
+      console.log(response);
+
+    } catch (error) {
+      console.error("API Error:", error);
+    }
 
     // Simulate data fetching with progress
     const interval = setInterval(() => {

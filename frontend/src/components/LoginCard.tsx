@@ -28,7 +28,7 @@ const LoginCard = () => {
     setLoading(true);
 
     try {
-      const response = await apiRequest("http://localhost:8000/api/auth/login/", {
+      const response = await apiRequest("/api/users/auth/login/", {
         method: "POST",
         body: JSON.stringify({ username, password }),
       });

@@ -5,7 +5,7 @@ let csrfToken: string | null = null;
 // Fetch CSRF token on app initialization
 export async function initializeCSRF() {
   try {
-    const response = await fetch('http://localhost:8000/api/auth/csrf/', {
+    const response = await fetch('/api/users/auth/csrf/', {
       credentials: 'include',
     });
     const data = await response.json();

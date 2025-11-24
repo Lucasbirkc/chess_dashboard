@@ -87,3 +87,38 @@ def _get_user_games(username):
 
 def _get_user_latest_game(username):
     return _get_user_games(username).order_by('-date_played').first()
+
+def get_recent_games(username, limit=5):
+    games = _get_user_games(username).order_by('-date_played')[:limit]
+
+    result = []
+
+    for game in games:
+        # Determine if user played as white or black
+        is_white = game.white_player.username == username
+        
+        # Get opponent username
+        opponent = game.black_player.username if is_white else game.white_player.username
+        
+        # Get player's rating in this game
+        player_rating = game.white_rating if is_white else game.black_rating
+        
+        # Determine result from player's perspective
+        if game.result == '1/2-1/2':
+            result_text = 'draw'
+        elif game.result == '1-0':
+            result_text = 'win' if is_white else 'loss'
+        elif game.result == '0-1':
+            result_text = 'loss' if is_white else 'win'
+        else:
+            result_text = 'unknown'
+        
+        result.append({
+            'opponent': opponent,
+            'opening_name': game.opening_name,
+            'rating': player_rating,
+            'result': result_text,
+            'timestamp': game.date_played.isoformat()  # DateField to ISO format
+        })
+    
+    return result

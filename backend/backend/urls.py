@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # TODO: TEMP PATHS?
-    path('api/', include('apps.chess.urls')),
-    path('api/', include('apps.users.urls')),
-    path('api/', include('apps.analytics.urls')),
+    path('api/chess/', include('apps.chess.urls')),
+    path('api/users/', include('apps.users.urls')),
+    path('api/analytics/', include('apps.analytics.urls')),
 ]
